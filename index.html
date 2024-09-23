@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="js/main.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+<body>
+    <section id="clustering">
+        <h1>Density Peaks Clustering Algorithm</h1>
+    </section>
+
+    <section id="datasets">
+        <p> 1. Load DataSet:</p>
+        <button id="JainDataset" onclick="LoadDataset('/data/Jain.csv');"> Jain Dataset</button>
+        <button id="pathBasedDataset" onclick="LoadDataset('data/pathBased.csv');"> PathBased Dataset</button>
+        <button id="spiralDataset" onclick="LoadDataset('data/spiral.csv');"> Spiral Dataset</button>
+        <button id="S1Dataset" onclick="LoadDataset('data/s1.csv');"> S1 Dataset</button>
+        <button id="FlameDataset" onclick="LoadDataset('data/flame.csv');"> Flame Dataset</button>
+        <button id="ZahnDataset" onclick="LoadDataset('data/zahn.csv');"> Zahn Dataset</button>
+        <button id="ChameleonDataset" onclick="LoadDataset('data/chameleon.csv');"> Chameleon Dataset</button>
+     </section>
+
+
+
+    <section id="clusteringAlgorithms">
+        <p> 2. Choose Clustering Algorithm:</p>
+        <button id="KNNCluster" onclick="Clusterize(0);"> KNN Cluster </button>
+        <button id="MultiManifoldCluster" onclick="Clusterize(1);"> Multi Manifold Cluster</button>
+    </section>
+
+    <section id="parameters">
+        <label>k:</label>
+        <input type="number" id="k" value="k" />
+        <label>M:</label>
+        <input type="number" id="M" value="M" />
+
+        <input type="radio" id="FineTuning" name="TuningType" value="FineTuning">
+        <label for="FineTuning">FineTuning</label>
+        <input type="radio" id="CoarseTuning" name="TuningType" value="CoarseTuning">
+        <label for="CoarseTuning">CoarseTuning</label>
+    </section>
+
+    <div id="scatterplot-container">
+        <div id="scatterplot"></div>
+    </div>
+
+</body>
+</html>
