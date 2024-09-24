@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="js/main.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 <body>
@@ -26,26 +27,26 @@
         <button id="ChameleonDataset" onclick="LoadDataset('data/chameleon.csv');"> Chameleon Dataset</button>
      </section>
 
-
-
-    <section id="clusteringAlgorithms">
-        <p> 2. Choose Clustering Algorithm:</p>
+     <p> 2. Choose Clustering Algorithm:</p>
+    <div id="ClusteringAlgorithms"> 
+        
+    
         <button id="KNNCluster" onclick="Clusterize(0);"> KNN Cluster </button>
         <button id="MultiManifoldCluster" onclick="Clusterize(1);"> Multi Manifold Cluster</button>
-    </section>
+        <fieldset> 
+            <legend> Parameters:</legend>
+            <label for="k">K:</label>   
+            <input type="number" id="k" value="0" />
+            <label for="M">M:</label>
+            <input type="number" id="M" value="3" />
 
-    <section id="parameters">
-        <label>k:</label>
-        <input type="number" id="k" value="k" />
-        <label>M:</label>
-        <input type="number" id="M" value="M" />
-
-        <input type="radio" id="FineTuning" name="TuningType" value="FineTuning">
-        <label for="FineTuning">FineTuning</label>
-        <input type="radio" id="CoarseTuning" name="TuningType" value="CoarseTuning">
-        <label for="CoarseTuning">CoarseTuning</label>
-    </section>
-
+            <input type="radio" id="FineTuning" name="TuningType" value="FineTuning" checked>
+            <label for="FineTuning">FineTuning</label>
+            <input type="radio" id="CoarseTuning" name="TuningType" value="CoarseTuning">
+            <label for="CoarseTuning">CoarseTuning</label>
+        </fieldset>
+    
+    </div>
     <div id="scatterplot-container">
         <div id="scatterplot"></div>
     </div>

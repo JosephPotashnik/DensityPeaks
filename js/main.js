@@ -62,3 +62,67 @@ console.error('Error loading the CSV data:', error);
 });
 
 }
+
+function ToDataMatrixJSon() {
+
+  let data = d3.select('#scatterplot').selectAll('circle').data();
+  var samples = new Array(data.length);
+  for (let i = 0; i < data.length; i++)
+      samples[i] = new Array(data[i].x, data[i].y);
+
+  let json =  JSON.stringify(samples);
+  return json;
+}
+
+
+
+function Clusterize(clusteringType) {
+
+  //DisableButtons(true);
+  let clusters = [];
+  let k = document.getElementById('k').value;
+  let M = document.getElementById('M').value;
+  let json = ToDataMatrixJSon();
+  let tuningType = document.querySelector('input[name="TuningType"]:checked').value;
+
+  axios.post('https://localhost:7035/KNN', json, {
+    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+    params: { "k": k , "tuningType": tuningType, "distanceType": "EuclideanDistance"}
+  })
+  .then((response) => { 
+    clusters = [...response.data];
+    
+    const colors = ['red', 'blue', 'green', 'yellow', 'purple'];
+
+    // Select all the circles and bind the colors array to them
+    d3.select('#scatterplot').selectAll("circle")
+       .data(clusters) // Bind the colors array to the circles
+       .style("fill", function(d) { return colors[d]; }); // Set the fill color based on the bound data
+
+
+  })
+  .catch(error => console.error(error));
+
+  //ColorAccordingToClusters(chart, clusters);
+  //DisableButtons(false);
+}
+
+function ColorAccordingToClusters(chart, clusters) {
+
+  var colorsCount = chart.colors.length;
+
+  for (var i = 0; i < chart.dataProvider.length; i++) {
+      var dp = chart.dataProvider[i];
+      var cluster = clusters[i];
+      dp.value = cluster;
+      if (cluster != 0) {
+          dp.color = chart.colors[cluster % colorsCount];
+      } else {
+
+          dp.color = "#000000";
+
+      }
+  }
+
+  chart.validateData();
+}
